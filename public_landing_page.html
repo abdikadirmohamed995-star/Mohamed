@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JHUB AFRICA - Innovation Ecosystem</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #2505c7, #1b05e4f9);
+      color: #fff; padding: 1rem 0;
+      position: sticky; top: 0; z-index: 1000;
+    }
+    .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; padding: 0 2rem; }
+    .logo-text { font-size: 1.5rem; font-weight: 700; }
+    .nav-menu { display: flex; align-items: center; gap: 2rem; }
+    .nav-link { color: #fff; text-decoration: none; font-weight: 500; padding: .5rem 1rem; border-radius: 6px; transition: .3s; }
+    .nav-link:hover { background: rgba(255, 255, 255, .1); }
+
+    /* Login Dropdown */
+    .login-dropdown { position: relative; display: inline-block; }
+    .login-btn { background: #3EF5A1; border: none; color: darkblue; padding: .7rem 1.2rem; border-radius: 8px; cursor: pointer; }
+    .dropdown-content { display: none; position: absolute; right: 0; top: 100%; background: #fff; min-width: 200px; border-radius: 8px; box-shadow: 0 8px 32px rgba(0,0,0,.2); }
+    .dropdown-content.show { display: block; }
+    .dropdown-item { padding: .8rem 1rem; color: #1309d0fb; text-decoration: none; display: block; }
+    .dropdown-item:hover { background: #f0f0f0; }
+
+    /* Hero */
+    .hero-section { background: #e3f2fd; padding: 4rem 2rem; text-align: center; }
+    .hero-title { font-size: 2.5rem; font-weight: 700; color: blue; }
+    .hero-subtitle { font-size: 1.2rem; color: blue; margin-bottom: 1rem; }
+    .btn-hero { padding: 1rem 2rem; border-radius: 8px; cursor: pointer; margin: .5rem; }
+    .btn-primary { background: blue; color: white; border: none; }
+    .btn-secondary { background: #fff; color: #1705a3; border: 2px solid blue; }
+
+    /* Sections */
+    .section-title { text-align: center; font-size: 2rem; font-weight: 700; color: #1b05c1; margin-bottom: 1rem; }
+
+    /* Projects */
+    .projects-section { padding: 3rem 2rem; }
+    .projects-filters { text-align: center; margin-bottom: 2rem; }
+    .filter-btn { padding: .6rem 1.2rem; margin: .3rem; border: 2px solid #ccc; background: #fff; border-radius: 20px; cursor: pointer; }
+    .filter-btn.active, .filter-btn:hover { background: blue; color: #fff; border-color: blue; }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .project-card { background: #fff; padding: 1.5rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,.1); }
+
+    /* About */
+    .about-section { background: #f9f9f9; padding: 3rem 2rem; text-align: center; }
+    .about-section p { max-width: 800px; margin: 1rem auto; font-size: 1rem; color: #444; }
+    .about-section ul { list-style: disc; text-align: left; max-width: 400px; margin: 1rem auto; padding-left: 1.2rem; }
+    .about-section li { margin: .5rem 0; color: #1565c0; font-weight: 500; }
+
+    /* Modal */
+    .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,.6); }
+    .modal-content { background: #fff; margin: 5% auto; padding: 2rem; border-radius: 10px; width: 90%; max-width: 500px; }
+    .close-btn { float: right; cursor: pointer; font-size: 1.2rem; color: #555; }
+    .form-group { margin-bottom: 1rem; text-align: left; }
+    .form-group label { display: block; margin-bottom: .3rem; font-weight: bold; }
+    .form-group input, .form-group textarea {
+      width: 100%; padding: .7rem; border: 1px solid #ccc; border-radius: 6px;
+    }
+    .submit-btn { background: blue; color: white; padding: .8rem; width: 100%; border: none; border-radius: 6px; cursor: pointer; }
+    .submit-btn:hover { background: darkblue; }
+
+    /* Smaller Mentor Modal - scrollable */
+    #mentorModal .modal-content {
+      max-width: 400px; padding: 1.5rem; max-height: 90vh; overflow-y: auto;
+    }
+    #mentorModal h2 { font-size: 1.3rem; margin-bottom: 1rem; }
+    #mentorModal .form-group input,
+    #mentorModal .form-group textarea { padding: 0.5rem; font-size: 0.9rem; }
+    #mentorModal .modal-content::-webkit-scrollbar { width: 6px; }
+    #mentorModal .modal-content::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+    #mentorModal .modal-content::-webkit-scrollbar-thumb:hover { background: #555; }
+
+    /* Contact Section */
+    .contact-section { padding: 60px 20px; background: #f9f9f9; text-align: center; }
+    .contact-section h2 { font-size: 2rem; margin-bottom: 10px; color: #333; }
+    .contact-section p { color: #666; margin-bottom: 20px; }
+    .contact-section form { max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; }
+    .contact-section input, .contact-section textarea {
+      padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;
+    }
+    .contact-section button {
+      padding: 12px; background: #0077cc; color: #fff; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer;
+    }
+    .contact-section button:hover { background: #005fa3; }
+    .feedback { margin-top: 10px; font-size: 0.9rem; color: green; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="nav-container">
+      <div class="logo-text">JHUB AFRICA</div>
+      <div class="nav-menu">
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#contact" class="nav-link">Contact Us</a>
+        <div class="login-dropdown">
+          <button class="login-btn" onclick="toggleDropdown()">Login ▼</button>
+          <div class="dropdown-content" id="loginDropdown">
+            <a href="#" class="dropdown-item" onclick="openModal('adminModal')">Admin Login</a>
+            <a href="#" class="dropdown-item" onclick="openModal('mentorModal')">Mentor Registration</a>
+            <a href="#" class="dropdown-item" onclick="openModal('projectModal')">Project Login</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero-section">
+    <h1 class="hero-title">Innovation Starts Here</h1>
+    <p class="hero-subtitle">Empowering African Innovators from different sectors</p>
+    <button class="btn-hero btn-primary" onclick="openModal('projectModal')">Create Project</button>
+    <a href="#projects" class="btn-hero btn-secondary">Explore Projects</a>
+  </div>
+
+  <!-- Projects -->
+  <div class="projects-section" id="projects">
+    <h2 class="section-title">Innovation Gallery</h2>
+    <div class="projects-filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="stage-3">Stage 3</button>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card" data-stage="stage-3">
+        <h3>Smart Agriculture App</h3>
+        <p>IoT-based monitoring system for farming.</p>
+      </div>
+      <div class="project-card" data-stage="stage-1">
+        <h3>Health Tracker</h3>
+        <p>Wearable device for remote healthcare.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <div class="about-section" id="about">
+    <h2 class="section-title">About Us</h2>
+    <p>
+      JHUB Africa is more than an innovation hub—it’s a launchpad for transformative ideas.
+      We connect bright minds to resources, mentorship, and funding, empowering them 
+      to turn their dreams into sustainable realities.
+    </p>
+    <h3>Our Key Pillars:</h3>
+    <ul>
+      <li>Climate Smart Agriculture</li>
+      <li>Green Digital Innovation</li>
+      <li>Digital Twin Model</li>
+      <li>Digital Transformation</li>
+      <li>Digital Trade</li>
+    </ul>
+  </div>
+
+  <!-- Contact Us -->
+  <section id="contact" class="contact-section">
+    <h2>Contact Us</h2>
+    <p>Have questions or need support? Get in touch with us.</p>
+    <form id="contactForm">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="email" id="email" placeholder="Your Email" required>
+      <textarea id="message" rows="4" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <p id="contactFeedback" class="feedback"></p>
+  </section>
+
+  <!-- Admin Login Modal -->
+  <div id="adminModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('adminModal')">✖</span>
+      <h2>Admin Login</h2>
+      <div class="form-group"><label>Username:</label><input type="text" placeholder="Enter Username"></div>
+      <div class="form-group"><label>Password:</label><input type="password" placeholder="Enter Password"></div>
+      <a href="admin_dashboard.html" class="submit-btn">Login</a>
+    </div>
+  </div>
+
+  <!-- Mentor Registration Modal -->
+  <div id="mentorModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('mentorModal')">✖</span>
+      <h2>Mentor Registration</h2>
+      <div class="form-group"><label>Mentor ID:</label><input type="text" placeholder="Enter Mentor ID"></div>
+      <div class="form-group"><label>Name:</label><input type="text" placeholder="Full Name"></div>
+      <div class="form-group"><label>Email:</label><input type="email" placeholder="Email"></div>
+      <div class="form-group"><label>Password:</label><input type="password" placeholder="Password"></div>
+      <div class="form-group"><label>Bio:</label><textarea rows="3" placeholder="Short Bio"></textarea></div>
+      <div class="form-group"><label>Expertise:</label><input type="text" placeholder="Area of Expertise"></div>
+      <div class="form-group"><label>Created by Admin ID:</label><input type="text" placeholder="Admin ID"></div>
+      <button class="submit-btn">Submit</button>
+    </div>
+  </div>
+
+  <!-- Project Login Modal -->
+  <div id="projectModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('projectModal')">✖</span>
+      <h2>Project Login</h2>
+      <div class="form-group"><label>Project Name:</label><input type="text" placeholder="Enter Project Name"></div>
+      <div class="form-group"><label>Email:</label><input type="email" placeholder="Project Email"></div>
+      <div class="form-group"><label>Password:</label><input type="password" placeholder="Password"></div>
+      <button class="submit-btn">Login</button>
+    </div>
+  </div>
+
+  <script>
+    // Dropdown
+    function toggleDropdown() {
+      document.getElementById("loginDropdown").classList.toggle("show");
+    }
+    window.onclick = function (e) {
+      if (!e.target.matches('.login-btn')) {
+        document.getElementById("loginDropdown").classList.remove("show");
+      }
+    }
+
+    // Modals
+    function openModal(id) {
+      document.getElementById(id).style.display = "block";
+    }
+    function closeModal(id) {
+      document.getElementById(id).style.display = "none";
+    }
+
+    // Close modal if user clicks outside
+    window.addEventListener("click", e => {
+      document.querySelectorAll(".modal").forEach(m => {
+        if (e.target == m) m.style.display = "none";
+      });
+    });
+
+    // Contact Form Handling
+    document.getElementById("contactForm").addEventListener("submit", function(e){
+      e.preventDefault();
+      document.getElementById("contactFeedback").textContent =
+        "Thank you for reaching out! Wait for our feedback.";
+      this.reset();
+    });
+  </script>
+
+</body>
+</html>
