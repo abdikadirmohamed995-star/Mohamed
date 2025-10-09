@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buy Item - RefurbishedHub</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --accent-color: #e74c3c;
+      --success-color: #2ecc71;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f8f9fa;
+      color: #333;
+    }
+
+    .navbar {
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .navbar-brand {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--secondary-color) !important;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--secondary-color) !important;
+    }
+
+    .product-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .product-image {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .thumbnail-container {
+      display: flex;
+      gap: 10px;
+      margin-top: 1rem;
+    }
+
+    .thumbnail {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .thumbnail:hover {
+      transform: scale(1.05);
+    }
+
+    .product-title {
+      color: var(--primary-color);
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .product-price {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: var(--accent-color);
+      margin-bottom: 1.5rem;
+    }
+
+    .product-condition {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: var(--secondary-color);
+      color: white;
+      border-radius: 20px;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .product-description {
+      color: #666;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .product-meta {
+      margin-bottom: 2rem;
+    }
+
+    .meta-item {
+      margin-bottom: 0.5rem;
+      color: #666;
+    }
+
+    .checkout-section {
+      background: #f8f9fa;
+      padding: 2rem;
+      border-radius: 10px;
+      margin-top: 2rem;
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    .form-control {
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      padding: 0.75rem;
+    }
+
+    .form-control:focus {
+      border-color: var(--secondary-color);
+      box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+    }
+
+    .buy-button {
+      background: var(--success-color);
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 30px;
+      width: 100%;
+      margin-top: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .buy-button:hover {
+      background: #27ae60;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .seller-info {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-top: 2rem;
+    }
+
+    .seller-name {
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    .payment-options {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .payment-option {
+      padding: 1rem;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .payment-option:hover,
+    .payment-option.selected {
+      border-color: var(--secondary-color);
+      background: #f8f9fa;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: var(--primary-color)">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <i class="fas fa-sync-alt me-2"></i>RefurbishedHub
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="browse.html"><i class="fas fa-search me-1"></i>Browse Items</a></li>
+        <li class="nav-item"><a class="nav-link" href="sell.html"><i class="fas fa-tag me-1"></i>Sell Item</a></li>
+        <li class="nav-item"><a class="nav-link active" href="buy.html"><i class="fas fa-shopping-cart me-1"></i>Buy Item</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container product-container">
+  <div class="row">
+    <div class="col-lg-6">
+      <!-- Product Images -->
+      <img src="" id="mainImage" class="product-image" alt="Product Image">
+      <div class="thumbnail-container">
+        <img src="" class="thumbnail" alt="Thumbnail 1" onclick="updateMainImage(this.src)">
+        <img src="" class="thumbnail" alt="Thumbnail 2" onclick="updateMainImage(this.src)">
+        <img src="" class="thumbnail" alt="Thumbnail 3" onclick="updateMainImage(this.src)">
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <!-- Product Details -->
+      <h1 class="product-title" id="itemName"></h1>
+      <span class="product-condition" id="itemCondition"></span>
+      <div class="product-price" id="itemPrice"></div>
+      
+      <div class="product-meta">
+        <div class="meta-item">
+          <i class="fas fa-tag me-2"></i>Category: <span id="itemCategory"></span>
+        </div>
+        <div class="meta-item">
+          <i class="fas fa-clock me-2"></i>Listed: <span id="itemDate"></span>
+        </div>
+      </div>
+
+      <div class="product-description" id="itemDescription"></div>
+
+      <div class="seller-info">
+        <h5><i class="fas fa-user me-2"></i>Seller Information</h5>
+        <p class="seller-name" id="sellerName"></p>
+        <p class="mb-0"><i class="fas fa-star text-warning me-1"></i>4.8/5 Rating</p>
+      </div>
+
+      <!-- Checkout Form -->
+      <div class="checkout-section">
+        <h4 class="mb-4">Complete Your Purchase</h4>
+        
+        <div class="payment-options mb-4">
+          <div class="payment-option selected">
+            <i class="fas fa-money-bill-wave me-2"></i>Cash
+          </div>
+          <div class="payment-option">
+            <i class="fas fa-mobile-alt me-2"></i>M-PESA
+          </div>
+          <div class="payment-option">
+            <i class="far fa-credit-card me-2"></i>Card
+          </div>
+        </div>
+
+        <form id="purchaseForm" action="process_purchase.php" method="POST">
+          <input type="hidden" name="item_id" id="itemId">
+          <div class="mb-3">
+            <label class="form-label">Contact Name</label>
+            <input type="text" class="form-control" name="contact_name" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Phone Number</label>
+            <input type="tel" class="form-control" name="phone" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-control" name="email" required>
+          </div>
+          <button type="submit" class="btn buy-button">
+            <i class="fas fa-lock me-2"></i>Complete Purchase
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Get the item ID from URL parameters
+const urlParams = new URLSearchParams(window.location.search);
+const itemId = urlParams.get('id');
+
+// Function to update main image when clicking thumbnails
+function updateMainImage(src) {
+  document.getElementById('mainImage').src = src;
+}
+
+// Function to fetch item details (you'll need to implement this with your backend)
+async function fetchItemDetails() {
+  try {
+    // Replace this with your actual API endpoint
+    const response = await fetch(`api/items/${itemId}`);
+    const item = await response.json();
+    
+    // Update the UI with item details
+    document.getElementById('itemName').textContent = item.name;
+    document.getElementById('itemPrice').textContent = `KES ${item.price.toLocaleString()}`;
+    document.getElementById('itemCondition').textContent = item.condition;
+    document.getElementById('itemCategory').textContent = item.category;
+    document.getElementById('itemDescription').textContent = item.description;
+    document.getElementById('itemDate').textContent = new Date(item.createdAt).toLocaleDateString();
+    document.getElementById('sellerName').textContent = item.sellerName;
+    document.getElementById('itemId').value = item.id;
+    
+    // Update images
+    document.getElementById('mainImage').src = item.images[0];
+    const thumbnails = document.querySelectorAll('.thumbnail');
+    item.images.forEach((image, index) => {
+      if (thumbnails[index]) {
+        thumbnails[index].src = image;
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching item details:', error);
+  }
+}
+
+// Handle payment option selection
+document.querySelectorAll('.payment-option').forEach(option => {
+  option.addEventListener('click', function() {
+    document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+    this.classList.add('selected');
+  });
+});
+
+// Initialize page
+if (itemId) {
+  fetchItemDetails();
+} else {
+  window.location.href = 'browse.html';
+}
+</script>
+</body>
+</html>
